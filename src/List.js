@@ -1,5 +1,5 @@
 import React from 'react'
-
+import ListItem from './ListItem'
 class List extends React.Component {
     constructor(props) {
         super(props)
@@ -11,6 +11,8 @@ class List extends React.Component {
 
         this.handleInput = this.handleInput.bind(this)
         this.handleClick = this.handleClick.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
+
     }
 
     handleInput(e) {
@@ -20,10 +22,19 @@ class List extends React.Component {
     handleClick() {
         const inputValue = { id: this.state.currentId, label: this.state.value }
         const updatedList = [...this.state.list, inputValue]
-        this.setState({ list: updatedList, currentId: this.state.currentId + 1 })
+        this.setState({ list: updatedList, currentId: this.state.currentId + 1, value: "" })
     }
 
+    handleDelete(id) {
+        const updatedData = this.state.list.filter(item => item.id !== id)
+        this.setState({ list: updatedData, currentId: this.state.currentId - 1 })
+    }
+
+    handleUpdate(id, value) {
+
+    }
     render() {
+
         return (
             <div>
                 <h1> Todo List</h1>
@@ -31,6 +42,15 @@ class List extends React.Component {
                     <input type="text" value={this.state.value} onChange={this.handleInput} />
                     <button type="button" onClick={this.handleClick}>Add</button>
                 </div>
+                <h1>All Items</h1>
+                {this.state.list.map(item => (
+                    <ListItem
+                        key={item.id}
+                        item={item}
+                        onDelete={() => this.handleDelete(item.id)}
+                        handleUpdate={this.handleUpdate}
+                    />
+                ))}
             </div>
         )
     }
