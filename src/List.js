@@ -12,6 +12,7 @@ class List extends React.Component {
         this.handleInput = this.handleInput.bind(this)
         this.handleClick = this.handleClick.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
+        this.handleUpdate = this.handleUpdate.bind(this)
 
     }
 
@@ -30,11 +31,19 @@ class List extends React.Component {
         this.setState({ list: updatedData, currentId: this.state.currentId - 1 })
     }
 
-    handleUpdate(id, value) {
-
+    handleUpdate(name, id) {
+        const updatedData = this.state.list.map(item => {
+            if (item.id === id) {
+                item.label = name
+                return item
+            } else {
+                return item
+            }
+        })
+        this.setState({ list: updatedData })
     }
     render() {
-
+        console.log("this.stateee", this.state)
         return (
             <div>
                 <h1> Todo List</h1>

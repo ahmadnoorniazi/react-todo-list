@@ -31,7 +31,7 @@ class ListItem extends React.Component {
                 </div>
                 <div>
                     {this.state.isEdit &&
-                        <EditField handleUpdate={handleUpdate} itemName={item.label} itemId={item.id} />
+                        <EditField handleUpdate={handleUpdate} itemName={item.label} itemId={item.id} onEdit={this.handleEdit} />
 
                     }
                 </div>

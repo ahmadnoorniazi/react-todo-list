@@ -5,19 +5,20 @@ class EditField extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: ""
+            value: this.props.itemName
         }
 
         this.handleChange = this.handleChange.bind(this)
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        // console.log("propssss", props, "thisssss", this.state)
-        // return { value: props.itemName }
+        this.handleUpdateValue = this.handleUpdateValue.bind(this)
     }
 
     handleChange(e) {
         this.setState({ value: e.target.value })
+    }
+
+    handleUpdateValue(value, id) {
+        this.props.handleUpdate(value, id)
+        this.props.onEdit()
     }
 
     render() {
@@ -25,7 +26,7 @@ class EditField extends React.Component {
         return (
             <div>
                 <input type="text" value={this.state.value} onChange={this.handleChange} />
-                <button type="button" onClick={handleUpdate}>Update</button>
+                <button type="button" onClick={() => this.handleUpdateValue(this.state.value, itemId)}>Update</button>
             </div>
         )
     }
