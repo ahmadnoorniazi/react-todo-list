@@ -1,11 +1,11 @@
 import './App.css';
-import List from './List'
-
+// import List from './List'
+import ParentButton from './ButtonParent'
 
 function App() {
   return (
     <div className="App">
-      <List />
+      <ParentButton />
     </div>
   );
 }
