@@ -1,34 +1,34 @@
 import React from 'react'
-import Counter from './Counter'
-
+import { API_URL } from './Constants'
 class ButtonParent extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            counter: 5
+            data: []
         }
-        this.handleCounter = this.handleCounter.bind(this)
-        this.handleDecrement = this.handleDecrement.bind(this)
     }
 
-    handleCounter() {
-        this.setState({ counter: this.state.counter + 1 })
+    componentDidMount() {
+        this.getApiData()
     }
 
-    handleDecrement() {
-        this.setState({ counter: this.state.counter - 1 })
-    }
 
+    getApiData() {
+        fetch(API_URL).then(response => response.json())
+            .then(data => {
+                this.setState({ data: data })
+            });
+    }
     render() {
         return (
             <div>
-                <button onClick={this.handleCounter}>
-                    +
-                </button>
-                <Counter counterValue={this.state.counter} />
-                <button onClick={this.handleCounter}>
-                    -
-                </button>
+                <h1> Cat List</h1>
+                {this.state.data.map(item => (
+                    <div>
+                        <h3>{item.type}</h3>
+                        <p>{item.text}</p>
+                    </div>
+                ))}
             </div>
         )
     }
